@@ -25,9 +25,14 @@ var createScene = function(){
     return scene;
 }
 
-function main(){
+function fixCanvasSize(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+}
+
+function main(){
+    fixCanvasSize();
+    addEventListener("resize", fixCanvasSize);
 
     // call the createScene function
     var scene = createScene();
