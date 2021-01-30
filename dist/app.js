@@ -46,7 +46,12 @@ var createScene = function () {
     // Create a basic BJS Scene object
     var scene = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Scene(engine);
     // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
-    var camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.FreeCamera('camera1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 5, -10), scene);
+    var camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.UniversalCamera('camera1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 5, -10), scene);
+    camera.mode = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Camera.ORTHOGRAPHIC_CAMERA;
+    camera.orthoTop = 5;
+    camera.orthoBottom = -5;
+    camera.orthoLeft = -5;
+    camera.orthoRight = 5;
     // Target the camera to scene origin
     camera.setTarget(babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3.Zero());
     // Attach the camera to the canvas
@@ -54,11 +59,11 @@ var createScene = function () {
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.HemisphericLight('light1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 1, 0), scene);
     // Create a built-in "sphere" shape; its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation
-    var sphere = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateSphere('sphere1', 16, 2, scene, false, babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.FRONTSIDE);
+    var sphere = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateSphere('sphere1', 4, 1, scene, false, babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.FRONTSIDE);
     // Move the sphere upward 1/2 of its height
     sphere.position.y = 1;
     // Create a built-in "ground" shape; its constructor takes 6 params : name, width, height, subdivision, scene, updatable
-    var ground = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateGround('ground1', 6, 6, 2, scene, false);
+    var ground = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateGround('ground1', 2, 2, 1, scene, false);
     // Return the created scene
     return scene;
 };
