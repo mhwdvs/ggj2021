@@ -9,13 +9,18 @@ var engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, sten
 var createScene = function(){
     // Create a basic BJS Scene object
     var scene = new BABYLON.Scene(engine);
-    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
-    var camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
+    // Create a UniversalCamera, and set its position to {x: 0, y: 5, z: -10}
+    var camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 0, -10), scene);
+    // Put camera into orthographic mode
     camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
-    camera.orthoTop = 5;
-    camera.orthoBottom = -5;
-    camera.orthoLeft = -5;
-    camera.orthoRight = 5;
+    // yeah idk
+    var distance = 2;
+    var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
+    camera.orthoLeft = -distance/2;
+    camera.orthoRight = distance / 2;
+    camera.orthoBottom = camera.orthoLeft * aspect;
+    camera.orthoTop = camera.orthoRight * aspect;
+    camera.fov = 90;
     // Target the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
     // Attach the camera to the canvas

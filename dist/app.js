@@ -45,13 +45,18 @@ var engine = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Engine(canvas, true, { p
 var createScene = function () {
     // Create a basic BJS Scene object
     var scene = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Scene(engine);
-    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
-    var camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.UniversalCamera('camera1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 5, -10), scene);
+    // Create a UniversalCamera, and set its position to {x: 0, y: 5, z: -10}
+    var camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.UniversalCamera('camera1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 0, -10), scene);
+    // Put camera into orthographic mode
     camera.mode = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Camera.ORTHOGRAPHIC_CAMERA;
-    camera.orthoTop = 5;
-    camera.orthoBottom = -5;
-    camera.orthoLeft = -5;
-    camera.orthoRight = 5;
+    // yeah idk
+    var distance = 2;
+    var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width;
+    camera.orthoLeft = -distance / 2;
+    camera.orthoRight = distance / 2;
+    camera.orthoBottom = camera.orthoLeft * aspect;
+    camera.orthoTop = camera.orthoRight * aspect;
+    camera.fov = 90;
     // Target the camera to scene origin
     camera.setTarget(babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3.Zero());
     // Attach the camera to the canvas
