@@ -47,6 +47,7 @@ var createScene = function () {
     var scene = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Scene(engine);
     // Create a UniversalCamera, and set its position to {x: 0, y: 5, z: -10}
     var camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.UniversalCamera('camera1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 5, -10), scene);
+    camera.rotation = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(1, -0.5, 1);
     // Put camera into orthographic mode
     camera.mode = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Camera.ORTHOGRAPHIC_CAMERA;
     // Target the camera to scene origin
@@ -60,17 +61,20 @@ var createScene = function () {
     // Move the sphere upward 1/2 of its height
     sphere.position.y = 1;
     // Create a built-in "ground" shape; its constructor takes 6 params : name, width, height, subdivision, scene, updatable
-    var ground = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateGround('ground1', 2, 0, 1, scene, false);
+    //var ground = BABYLON.Mesh.CreateGround('ground1', 2, 0, 1, scene, false);
     // Return the created scene
-    var w = ground.getBoundingInfo().boundingBox.maximumWorld.x - ground.getBoundingInfo().boundingBox.minimumWorld.x;
-    var h = ground.getBoundingInfo().boundingBox.maximumWorld.z - ground.getBoundingInfo().boundingBox.minimumWorld.z;
-    var distance = Math.max(w, h);
+    var box1 = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateBox('box1', 1, scene, false, babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.FRONTSIDE);
+    box1.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(2, 0, 0);
+    var box2 = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateBox('box2', 1, scene, false, babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.FRONTSIDE);
+    box2.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 2, 0);
+    var box3 = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.CreateBox('box3', 1, scene, false, babylonjs__WEBPACK_IMPORTED_MODULE_0__.Mesh.FRONTSIDE);
+    box3.position = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 0, 2);
+    var distance = 10;
     var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width;
     camera.orthoLeft = -distance / 2;
     camera.orthoRight = distance / 2;
     camera.orthoBottom = camera.orthoLeft * aspect;
     camera.orthoTop = camera.orthoRight * aspect;
-    camera.fov = 90;
     return scene;
 };
 function fixCanvasSize() {

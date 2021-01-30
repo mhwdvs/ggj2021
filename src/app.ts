@@ -11,6 +11,7 @@ var createScene = function(){
     var scene = new BABYLON.Scene(engine);
     // Create a UniversalCamera, and set its position to {x: 0, y: 5, z: -10}
     var camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
+    camera.rotation = new BABYLON.Vector3(1, -0.5, 1);
     // Put camera into orthographic mode
     camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
 
@@ -25,18 +26,21 @@ var createScene = function(){
     // Move the sphere upward 1/2 of its height
     sphere.position.y = 1;
     // Create a built-in "ground" shape; its constructor takes 6 params : name, width, height, subdivision, scene, updatable
-    var ground = BABYLON.Mesh.CreateGround('ground1', 2, 0, 1, scene, false);
+    //var ground = BABYLON.Mesh.CreateGround('ground1', 2, 0, 1, scene, false);
     // Return the created scene
+    var box1 = BABYLON.Mesh.CreateBox('box1', 1, scene, false, BABYLON.Mesh.FRONTSIDE);
+    box1.position = new BABYLON.Vector3(2,0,0);
+    var box2 = BABYLON.Mesh.CreateBox('box2', 1, scene, false, BABYLON.Mesh.FRONTSIDE);
+    box2.position = new BABYLON.Vector3(0,2,0);
+    var box3 = BABYLON.Mesh.CreateBox('box3', 1, scene, false, BABYLON.Mesh.FRONTSIDE);
+    box3.position = new BABYLON.Vector3(0,0,2);
 
-    var w = ground.getBoundingInfo().boundingBox.maximumWorld.x - ground.getBoundingInfo().boundingBox.minimumWorld.x
-    var h = ground.getBoundingInfo().boundingBox.maximumWorld.z - ground.getBoundingInfo().boundingBox.minimumWorld.z
-    var distance = Math.max(w, h)
+    var distance = 10;
     var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
     camera.orthoLeft = -distance/2;
     camera.orthoRight = distance / 2;
     camera.orthoBottom = camera.orthoLeft * aspect;
     camera.orthoTop = camera.orthoRight * aspect;
-    camera.fov = 90;
 
     return scene;
 }
