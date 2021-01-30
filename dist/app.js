@@ -47,11 +47,9 @@ var createScene = function () {
     var scene = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Scene(engine);
     // Create a UniversalCamera, and set its position to {x: 0, y: 5, z: -10}
     var camera = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.UniversalCamera('camera1', new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0, 5, -10), scene);
-    camera.rotation = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(1, -0.5, 1);
+    camera.rotation = new babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3(0.5, 0.5, 0);
     // Put camera into orthographic mode
     camera.mode = babylonjs__WEBPACK_IMPORTED_MODULE_0__.Camera.ORTHOGRAPHIC_CAMERA;
-    // Target the camera to scene origin
-    camera.setTarget(babylonjs__WEBPACK_IMPORTED_MODULE_0__.Vector3.Zero());
     // Attach the camera to the canvas
     camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky

@@ -11,12 +11,10 @@ var createScene = function(){
     var scene = new BABYLON.Scene(engine);
     // Create a UniversalCamera, and set its position to {x: 0, y: 5, z: -10}
     var camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
-    camera.rotation = new BABYLON.Vector3(1, -0.5, 1);
+    camera.rotation = new BABYLON.Vector3(0.5, 0.5, 0);
     // Put camera into orthographic mode
     camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
 
-    // Target the camera to scene origin
-    camera.setTarget(BABYLON.Vector3.Zero());
     // Attach the camera to the canvas
     camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
