@@ -1,5 +1,7 @@
+import * as BABYLON from 'babylonjs';
+
 // Get the canvas DOM element
-var canvas = document.getElementById('renderCanvas');
+var canvas = <HTMLCanvasElement>document.getElementById('renderCanvas');
 // Load the 3D engine
 var engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, stencil: true});
 
