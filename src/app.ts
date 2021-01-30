@@ -40,6 +40,31 @@ var createScene = function(){
     camera.orthoBottom = camera.orthoLeft * aspect;
     camera.orthoTop = camera.orthoRight * aspect;
 
+    // Keypress events
+    let keyisdown = {};
+    window.addEventListener('keydown', function (event) {
+        keyisdown[event.code] = true;
+    });
+ 
+    window.addEventListener('keyup', function (event) {
+        keyisdown[event.code] = false;
+    });
+
+    scene.registerBeforeRender(function() {
+        if(keyisdown["ArrowLeft"]){
+            camera.position.x -= 1;
+        }
+        if(keyisdown["ArrowRight"]){
+            camera.position.x += 1;
+        }
+        if(keyisdown["ArrowUp"]){
+            camera.position.z += 1;
+        }
+        if(keyisdown["ArrowDown"]){
+            camera.position.z -= 1;
+        }
+    });
+
     return scene;
 }
 
