@@ -51,30 +51,22 @@ var createScene = function(){
     });
 
     window.addEventListener('mousemove', function (event) {
+        keyisdown["MouseX"] = event.clientX;
+        keyisdown["MouseY"] = event.clientY;
         if(event.clientX === 0){ // left
-            keyisdown["MouseLeft"] = true; // so camera can be moved without cursor moving at edge of screen
-            keyisdown["MouseRight"] = false;
+            keyisdown["MouseBorder"] = true; // so camera can be moved without cursor moving at edge of screen
         }
         else if(event.clientX === window.innerWidth - 1){ // right
-            keyisdown["MouseRight"] = true;
-            keyisdown["MouseLeft"] = false;
+            keyisdown["MouseBorder"] = true;
         }
-        else{ // neither
-            keyisdown["MouseRight"] = false;
-            keyisdown["MouseLeft"] = false;
-        }
-
-        if(event.clientY === 0){ // down
-            keyisdown["MouseDown"] = true;
-            keyisdown["MouseUp"] = false;
+        else if(event.clientY === 0){ // down
+            keyisdown["MouseBorder"] = true;
         }
         else if(event.clientY === window.innerHeight - 1){ // up
-            keyisdown["MouseUp"] = true;
-            keyisdown["MouseDown"] = false;
+            keyisdown["MouseBorder"] = true;
         }
         else{ // neither
-            keyisdown["MouseUp"] = false;
-            keyisdown["MouseDown"] = false;
+            keyisdown["MouseBorder"] = false;
         }
     })
 
@@ -91,17 +83,19 @@ var createScene = function(){
         if(keyisdown["ArrowDown"]){
             camera.position.z -= 1;
         }
-        if(keyisdown["MouseLeft"]){
-            camera.position.x -= 0.5;
-        }
-        if(keyisdown["MouseRight"]){
-            camera.position.x += 0.5;
-        }
-        if(keyisdown["MouseUp"]){
-            camera.position.z -= 0.5;
-        }
-        if(keyisdown["MouseDown"]){
-            camera.position.z += 0.5;
+        if(keyisdown["MouseBorder"]) {
+            //let center;
+            //center.x = window.innerWidth/2;
+            //center.y = window.innerHeight/2;
+            //let border;
+            //border.x = keyisdown["MouseX"];
+            //border.y = keyisdown["MouseY"];
+            //let dir;
+            //dir.x = border.x - center.x;
+            //dir.y = border.y - center.y;
+            console.log("yo")
+            camera.position.x += (keyisdown["MouseX"] - window.innerWidth/2)/window.innerWidth;
+            camera.position.z += (keyisdown["MouseY"] - window.innerHeight/2)/window.innerHeight;
         }
     });
 
