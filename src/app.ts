@@ -50,6 +50,34 @@ var createScene = function(){
         keyisdown[event.code] = false;
     });
 
+    window.addEventListener('mousemove', function (event) {
+        if(event.clientX === 0){ // left
+            keyisdown["MouseLeft"] = true; // so camera can be moved without cursor moving at edge of screen
+            keyisdown["MouseRight"] = false;
+        }
+        else if(event.clientX === window.innerWidth - 1){ // right
+            keyisdown["MouseRight"] = true;
+            keyisdown["MouseLeft"] = false;
+        }
+        else{ // neither
+            keyisdown["MouseRight"] = false;
+            keyisdown["MouseLeft"] = false;
+        }
+
+        if(event.clientY === 0){ // down
+            keyisdown["MouseDown"] = true;
+            keyisdown["MouseUp"] = false;
+        }
+        else if(event.clientY === window.innerHeight - 1){ // up
+            keyisdown["MouseUp"] = true;
+            keyisdown["MouseDown"] = false;
+        }
+        else{ // neither
+            keyisdown["MouseUp"] = false;
+            keyisdown["MouseDown"] = false;
+        }
+    })
+
     scene.registerBeforeRender(function() {
         if(keyisdown["ArrowLeft"]){
             camera.position.x -= 1;
@@ -62,6 +90,18 @@ var createScene = function(){
         }
         if(keyisdown["ArrowDown"]){
             camera.position.z -= 1;
+        }
+        if(keyisdown["MouseLeft"]){
+            camera.position.x -= 0.5;
+        }
+        if(keyisdown["MouseRight"]){
+            camera.position.x += 0.5;
+        }
+        if(keyisdown["MouseUp"]){
+            camera.position.z -= 0.5;
+        }
+        if(keyisdown["MouseDown"]){
+            camera.position.z += 0.5;
         }
     });
 
