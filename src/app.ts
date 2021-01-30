@@ -16,7 +16,7 @@ var createScene = function(){
     camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
 
     // Attach the camera to the canvas
-    camera.attachControl(canvas, false);
+    //camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
     // Create a built-in "sphere" shape; its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation
