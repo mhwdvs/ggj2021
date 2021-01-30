@@ -9,21 +9,37 @@ var engine = new BABYLON.Engine(canvas, true, {preserveDrawingBuffer: true, sten
 var createScene = function(){
     // Create a basic BJS Scene object
     var scene = new BABYLON.Scene(engine);
-    // Create a FreeCamera, and set its position to {x: 0, y: 5, z: -10}
-    var camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
-    // Target the camera to scene origin
-    camera.setTarget(BABYLON.Vector3.Zero());
+    // Create a UniversalCamera, and set its position to {x: 0, y: 5, z: -10}
+    var camera = new BABYLON.UniversalCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
+    camera.rotation = new BABYLON.Vector3(0.5, 0.5, 0);
+    // Put camera into orthographic mode
+    camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+
     // Attach the camera to the canvas
     camera.attachControl(canvas, false);
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
     // Create a built-in "sphere" shape; its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation
-    var sphere = BABYLON.Mesh.CreateSphere('sphere1', 16, 2, scene, false, BABYLON.Mesh.FRONTSIDE);
+    var sphere = BABYLON.Mesh.CreateSphere('sphere1', 4, 1, scene, false, BABYLON.Mesh.FRONTSIDE);
     // Move the sphere upward 1/2 of its height
     sphere.position.y = 1;
     // Create a built-in "ground" shape; its constructor takes 6 params : name, width, height, subdivision, scene, updatable
-    var ground = BABYLON.Mesh.CreateGround('ground1', 6, 6, 2, scene, false);
+    //var ground = BABYLON.Mesh.CreateGround('ground1', 2, 0, 1, scene, false);
     // Return the created scene
+    var box1 = BABYLON.Mesh.CreateBox('box1', 1, scene, false, BABYLON.Mesh.FRONTSIDE);
+    box1.position = new BABYLON.Vector3(2,0,0);
+    var box2 = BABYLON.Mesh.CreateBox('box2', 1, scene, false, BABYLON.Mesh.FRONTSIDE);
+    box2.position = new BABYLON.Vector3(0,2,0);
+    var box3 = BABYLON.Mesh.CreateBox('box3', 1, scene, false, BABYLON.Mesh.FRONTSIDE);
+    box3.position = new BABYLON.Vector3(0,0,2);
+
+    var distance = 10;
+    var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
+    camera.orthoLeft = -distance/2;
+    camera.orthoRight = distance / 2;
+    camera.orthoBottom = camera.orthoLeft * aspect;
+    camera.orthoTop = camera.orthoRight * aspect;
+
     return scene;
 }
 
