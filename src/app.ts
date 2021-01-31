@@ -17,7 +17,7 @@ var createScene = function(){
     // [its definitely not a direction vector] - terrible docs)
     camera.cameraRotation = new BABYLON.Vector2(0.045, 0.080);
     // Put camera into orthographic mode
-    //camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+    camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
 
     // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
@@ -40,12 +40,12 @@ var createScene = function(){
     var line2 = BABYLON.Mesh.CreateLines('line7', [new BABYLON.Vector3(100, 0, 0), new BABYLON.Vector3(0, 0, 100)], scene, false);
     var line2 = BABYLON.Mesh.CreateLines('line7', [new BABYLON.Vector3(100, 0, 100), new BABYLON.Vector3(-100, 0, -100)], scene, false);
 
-    //var distance = 10;
-    //var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
-    //camera.orthoLeft = -distance/2;
-    //camera.orthoRight = distance / 2;
-    //camera.orthoBottom = camera.orthoLeft * aspect;
-    //camera.orthoTop = camera.orthoRight * aspect;
+    var distance = 10;
+    var aspect = scene.getEngine().getRenderingCanvasClientRect().height / scene.getEngine().getRenderingCanvasClientRect().width; 
+    camera.orthoLeft = -distance/2;
+    camera.orthoRight = distance / 2;
+    camera.orthoBottom = camera.orthoLeft * aspect;
+    camera.orthoTop = camera.orthoRight * aspect;
 
     // Keypress events
     let keyisdown = {};
