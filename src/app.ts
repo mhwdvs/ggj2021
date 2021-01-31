@@ -58,62 +58,57 @@ var createScene = function(){
     });
 
     window.addEventListener('mousemove', function (event) {
-        keyisdown["MouseX"] = event.clientX;
-        keyisdown["MouseY"] = event.clientY;
         if(event.clientX === 0){ // left
-            keyisdown["MouseBorder"] = true; // so camera can be moved without cursor moving at edge of screen
+            keyisdown["MouseLeft"] = true; // so camera can be moved without cursor moving at edge of screen
+            keyisdown["MouseRight"] = false;
         }
         else if(event.clientX === window.innerWidth - 1){ // right
-            keyisdown["MouseBorder"] = true;
+            keyisdown["MouseRight"] = true;
+            keyisdown["MouseLeft"] = false;
         }
-        else if(event.clientY === 0){ // down
-            keyisdown["MouseBorder"] = true;
+        else{
+            keyisdown["MouseLeft"] = false;
+            keyisdown["MouseRight"] = false;
         }
-        else if(event.clientY === window.innerHeight - 1){ // up
-            keyisdown["MouseBorder"] = true;
+        
+        if(event.clientY === 0){ // up
+            keyisdown["MouseDown"] = false;
+            keyisdown["MouseUp"] = true;
+        }
+        else if(event.clientY === window.innerHeight - 1){ // down
+            keyisdown["MouseUp"] = false;
+            keyisdown["MouseDown"] = true;
         }
         else{ // neither
-            keyisdown["MouseBorder"] = false;
+            keyisdown["MouseUp"] = false;
+            keyisdown["MouseDown"] = false;
         }
     })
 
     scene.registerBeforeRender(function() {
-        if(keyisdown["ArrowLeft"]){
+        if(keyisdown["ArrowLeft"] || keyisdown["MouseLeft"]){
             //camera.position.x -= 1;
             //let {x, y} = translateScreenToScene(new BABYLON.Vector2(-1, 0), camera.cameraRotation);
             camera.position.x += -0.5;
             camera.position.z += 0.5;
         }
-        if(keyisdown["ArrowRight"]){
+        if(keyisdown["ArrowRight"] || keyisdown["MouseRight"]){
             //camera.position.x += 1;
             //let {x, y} = translateScreenToScene(new BABYLON.Vector2(1, 0), camera.cameraRotation);
             camera.position.x += 0.5;
             camera.position.z += -0.5;
         }
-        if(keyisdown["ArrowUp"]){
+        if(keyisdown["ArrowUp"] || keyisdown["MouseUp"]){
             //camera.position.z += 1;
             //let {x, y} = translateScreenToScene(new BABYLON.Vector2(0, 1), camera.cameraRotation);
             camera.position.x += 0.5;
             camera.position.z += 0.5;
         }
-        if(keyisdown["ArrowDown"]){
+        if(keyisdown["ArrowDown"] || keyisdown["MouseDown"]){
             //camera.position.z -= 1;
             let {x, y} = translateScreenToScene(new BABYLON.Vector2(0, -1), camera.cameraRotation);
             camera.position.x += -0.5;
             camera.position.z += -0.5;
-        }
-        if(keyisdown["MouseBorder"]) {
-            //let center;
-            //center.x = window.innerWidth/2;
-            //center.y = window.innerHeight/2;
-            //let border;
-            //border.x = keyisdown["MouseX"];
-            //border.y = keyisdown["MouseY"];
-            //let dir;
-            //dir.x = border.x - center.x;
-            //dir.y = border.y - center.y;
-            camera.position.x += (keyisdown["MouseX"] - window.innerWidth/2)/window.innerWidth;
-            camera.position.z += (keyisdown["MouseY"] - window.innerHeight/2)/window.innerHeight;
         }
     });
 
