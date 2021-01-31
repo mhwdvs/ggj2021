@@ -87,26 +87,18 @@ var createScene = function(){
 
     scene.registerBeforeRender(function() {
         if(keyisdown["ArrowLeft"] || keyisdown["MouseLeft"]){
-            //camera.position.x -= 1;
-            //let {x, y} = translateScreenToScene(new BABYLON.Vector2(-1, 0), camera.cameraRotation);
             camera.position.x += -0.5;
             camera.position.z += 0.5;
         }
         if(keyisdown["ArrowRight"] || keyisdown["MouseRight"]){
-            //camera.position.x += 1;
-            //let {x, y} = translateScreenToScene(new BABYLON.Vector2(1, 0), camera.cameraRotation);
             camera.position.x += 0.5;
             camera.position.z += -0.5;
         }
         if(keyisdown["ArrowUp"] || keyisdown["MouseUp"]){
-            //camera.position.z += 1;
-            //let {x, y} = translateScreenToScene(new BABYLON.Vector2(0, 1), camera.cameraRotation);
             camera.position.x += 0.5;
             camera.position.z += 0.5;
         }
         if(keyisdown["ArrowDown"] || keyisdown["MouseDown"]){
-            //camera.position.z -= 1;
-            let {x, y} = translateScreenToScene(new BABYLON.Vector2(0, -1), camera.cameraRotation);
             camera.position.x += -0.5;
             camera.position.z += -0.5;
         }
@@ -118,18 +110,6 @@ var createScene = function(){
 function fixCanvasSize(){
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-}
-
-function translateScreenToScene(inc: BABYLON.Vector2, cameraRotation: BABYLON.Vector2){
-    // correct the direction of movement to be relative to the screen's coordinates rather than the games coordinates
-    inc.x += (0.5);
-    inc.y += (0.5);
-    return inc;
-}
-
-function translateSceneToScreen(inc: BABYLON.Vector3){
-    inc.x = inc.x * (-0.5);
-    inc.y = inc.y * (-0.5);
 }    
 
 function main(){
